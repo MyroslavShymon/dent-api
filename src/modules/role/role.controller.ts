@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { RoleService } from './role.service';
 
 @Controller('role')
@@ -11,7 +11,7 @@ export class RoleController {
   }
 
   @Get()
-  getAll(){
+  getAll() {
     return this.roleService.getAll();
   }
 }

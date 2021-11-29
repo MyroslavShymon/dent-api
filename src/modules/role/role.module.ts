@@ -3,15 +3,12 @@ import { RoleController } from './role.controller';
 import { RoleService } from './role.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from '../../database/role.entity';
-import { BASE_PROVIDER_REPOSITORY } from '../../core/repositories/base/base.provider.repository';
 import { RoleRepository } from '../../core/repositories/role/role.repository';
+import { BaseRepositoryProvider } from '../../core/providers/base/base.repository.provider';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Role])],
   controllers: [RoleController],
-  providers: [
-    RoleService,
-    { provide: BASE_PROVIDER_REPOSITORY, useClass: RoleRepository },
-  ],
+  providers: [RoleService, BaseRepositoryProvider(RoleRepository)],
 })
 export class RoleModule {}

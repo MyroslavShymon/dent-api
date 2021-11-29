@@ -1,10 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { BASE_PROVIDER_REPOSITORY } from '../../core/repositories/base/base.provider.repository';
-import { RoleRepositoryInterface } from '../../core/repositories/role/role.repository.interface';
 import { Role } from '../../database/role.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { RoleRepository } from "../../core/repositories/role/role.repository";
+import { RoleRepository } from '../../core/repositories/role/role.repository';
+import { BASE_PROVIDER_REPOSITORY } from '../../core/providers/base/base.repository.provider';
 
 @Injectable()
 export class RoleService {
@@ -16,14 +14,10 @@ export class RoleService {
   ) {}
 
   public async create(roleDto: any): Promise<Role> {
-    const user = await this.roleRepository.rolesRepository.findOne({ title: 'User' });
-    console.log('user', user);
-
-    return this.roleRepository.createSm(roleDto);
+    return this.roleRepository.create(roleDto);
   }
 
-  public async getAll(): Promise<Role[]>
-  {
+  public async getAll(): Promise<Role[]> {
     return this.roleRepository.findAll();
   }
 }
