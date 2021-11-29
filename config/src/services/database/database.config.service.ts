@@ -1,10 +1,13 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigService } from '../config.service';
+import { ConfigService } from '../../config.service';
+import { CONFIG_SERVICE } from '../../constants';
+import { User } from '../../../../src/database/user.entity';
+import { Role } from '../../../../src/database/role.entity';
 
 export class DatabaseConfigService {
   static provideTypeOrmModule = () =>
     TypeOrmModule.forRootAsync({
-      inject: ['CONFIG_SERVICE'],
+      inject: [CONFIG_SERVICE],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.getValue('POSTGRES_HOST'),
@@ -16,6 +19,7 @@ export class DatabaseConfigService {
         autoLoadEntities: Boolean(
           configService.getValue('POSTGRES_AUTO_LOAD_ENTITIES'),
         ),
+        entities: [configService.getValue('CONFIG_ENTITY_DIR')],
       }),
     });
 }

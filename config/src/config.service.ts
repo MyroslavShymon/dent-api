@@ -18,5 +18,3 @@ export class ConfigService {
     return mode != 'DEV';
   }
 }
-// const configService = new ConfigService(process.env);
-// export { configService, ConfigService };

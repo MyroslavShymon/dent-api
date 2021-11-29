@@ -1,15 +1,20 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ConfigModule } from './config/src/config.module';
-import { DatabaseConfigService } from './config/src/database/database.config.service';
+import { ConfigModule } from '../config/src/config.module';
+import { DatabaseConfigService } from '../config/src/services/database/database.config.service';
+import { UserModule } from "./modules/user/user.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { RoleModule } from "./modules/role/role.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     DatabaseConfigService.provideTypeOrmModule(),
+
+    //modules
+    UserModule,
+    AuthModule,
+    RoleModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
