@@ -1,16 +1,18 @@
 import { BaseInterfaceRepository } from './base.interface.repository';
 import { DeleteResult, Repository } from 'typeorm';
 
-export abstract class BaseAbstractRepository<T>
+export class BaseAbstractRepository<T>
+  extends Repository<T>
   implements BaseInterfaceRepository<T>
 {
-  private entity: Repository<T>;
+  public entity: Repository<T>;
 
   protected constructor(entity: Repository<T>) {
+    super();
     this.entity = entity;
   }
 
-  public async create(data: T | any): Promise<T> {
+  public async createSm(data: T | any): Promise<T> {
     return await this.entity.save(data);
   }
 
@@ -30,7 +32,7 @@ export abstract class BaseAbstractRepository<T>
     return await this.entity.find();
   }
 
-  public async remove(id: string): Promise<DeleteResult> {
+  public async removeSm(id: string): Promise<DeleteResult> {
     return await this.entity.delete(id);
   }
 }

@@ -1,9 +1,10 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable } from '@nestjs/common';
 import { BaseAbstractRepository } from '../base/base.abstract.repository';
 import { User } from '../../../database/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepositoryInterface } from './user.repository.interface';
+import { BASE_PROVIDER_REPOSITORY } from '../base/base.provider.repository';
 
 @Injectable()
 export class UserRepository
@@ -12,7 +13,7 @@ export class UserRepository
 {
   constructor(
     @InjectRepository(User)
-    @Inject('UserRepositoryInterface')
+    @Inject(BASE_PROVIDER_REPOSITORY)
     public readonly usersRepository: Repository<User>,
   ) {
     super(usersRepository);
