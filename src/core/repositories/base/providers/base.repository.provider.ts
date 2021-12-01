@@ -1,4 +1,4 @@
-export const BASE_PROVIDER_REPOSITORY = 'BASE_PROVIDER_REPOSITORY';
+import { BASE_PROVIDER_REPOSITORY } from '../tokens/base.repository.token';
 
 export function BaseRepositoryProvider(useClass) {
   return {

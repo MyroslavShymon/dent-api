@@ -1,8 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '../../config.service';
 import { CONFIG_SERVICE } from '../../constants';
-import { User } from '../../../../src/database/user.entity';
-import { Role } from '../../../../src/database/role.entity';
 
 export class DatabaseConfigService {
   static provideTypeOrmModule = () =>

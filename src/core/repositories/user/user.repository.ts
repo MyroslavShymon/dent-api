@@ -1,12 +1,12 @@
-import { BaseAbstractRepository } from '../base/base.abstract.repository';
-import { User } from '../../../database/user.entity';
+import { BaseRepositoryAbstract } from '../base';
+import { User } from '../../../database';
 import { EntityRepository, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepositoryInterface } from './user.repository.interface';
+import { UserRepositoryInterface } from './interfaces';
 
 @EntityRepository(User)
 export class UserRepository
-  extends BaseAbstractRepository<User>
+  extends BaseRepositoryAbstract<User>
   implements UserRepositoryInterface
 {
   constructor(
