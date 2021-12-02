@@ -1,14 +1,19 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Role } from '../../../../database';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RoleRepository } from '../../../../core/repositories';
-import { UserServiceInterface } from '../../../../core/interfaces/user';
-import { UserService } from '../../../user/environment/services';
-import { BASE_PROVIDER_REPOSITORY } from '../../../../core/repositories';
-import { USER_SERVICE_TOKEN } from '../../../../core/constants/tokens/user/user.service.token';
+import { Role } from '../../../../database';
+import {
+  RoleRepository,
+  BASE_PROVIDER_REPOSITORY,
+  RoleServiceInterface,
+  UserServiceInterface,
+  USER_SERVICE_TOKEN,
+} from '../../../../core';
+import { UserService } from '../../../user/environment';
+import { CreateRoleDto } from '../dtos';
+import { BaseDeleteResponseInterface } from '../../../../core/interfaces/base/responses';
 
 @Injectable()
-export class RoleService {
+export class RoleService implements RoleServiceInterface {
   constructor(
     // private readonly roleRepository: RoleRepository,
     @Inject(BASE_PROVIDER_REPOSITORY)
@@ -16,12 +21,33 @@ export class RoleService {
     private readonly roleRepository: RoleRepository, // @Inject(USER_SERVICE_TOKEN) // private readonly userService: UserServiceInterface,
   ) {}
 
-  public async create(roleDto: any): Promise<Role> {
+  public async create(roleDto: CreateRoleDto): Promise<Role> {
     return this.roleRepository.create(roleDto);
   }
 
-  public async getAll(): Promise<Role[]> {
-    // this.userService.
+  public async findAll(): Promise<Role[]> {
     return this.roleRepository.findAll();
+  }
+
+  // public async findByCondition(
+  //   filterCondition: FilterConditionBaseType<Role>,
+  // ): Promise<Role> {
+  //   return Promise.resolve(undefined);
+  // }
+
+  public async findOneById(id: number): Promise<Role> {
+    return this.roleRepository.findOneById(id);
+  }
+
+  // public async findWithRelations(relations: FindManyOptions<Role>): Promise<Role[]> {
+  //   return Promise.resolve([]);
+  // }
+
+  public async remove(): Promise<BaseDeleteResponseInterface> {
+    return this.roleRepository.remove();
+  }
+
+  public async removeById(id: number): Promise<BaseDeleteResponseInterface> {
+    return this.roleRepository.removeById(id);
   }
 }

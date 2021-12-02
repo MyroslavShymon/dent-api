@@ -1,10 +1,11 @@
 import { BaseRepositoryInterface } from '../interfaces';
-import { Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import {
   BaseDeleteResponse,
   BaseDeleteResponseInterface,
-} from '../../../interfaces/base/responses/base-delete.response.interface';
+} from '../../../interfaces/base/responses';
+import { FilterConditionBaseType } from '../../../types';
 
 export class BaseRepositoryAbstract<T> implements BaseRepositoryInterface<T> {
   private entity: Repository<T>;
@@ -26,11 +27,14 @@ export class BaseRepositoryAbstract<T> implements BaseRepositoryInterface<T> {
     return essence;
   }
 
-  public async findByCondition(filterCondition: any): Promise<T> {
+  //TODO fix typing
+  public async findByCondition(
+    filterCondition: FilterConditionBaseType<T>,
+  ): Promise<T> {
     return await this.entity.findOne({ where: filterCondition });
   }
 
-  public async findWithRelations(relations: any): Promise<T[]> {
+  public async findWithRelations(relations: FindManyOptions<T>): Promise<T[]> {
     return await this.entity.find(relations);
   }
 
@@ -38,12 +42,16 @@ export class BaseRepositoryAbstract<T> implements BaseRepositoryInterface<T> {
     return await this.entity.find();
   }
 
-  public async removeById(id: number): Promise<any> {
+  public async removeById(id: number): Promise<BaseDeleteResponseInterface> {
     const deleteResult = await this.entity.delete(id);
     return new BaseDeleteResponse(deleteResult);
   }
 
-  public async remove(): Promise<any> {
-    return await this.entity.createQueryBuilder().delete().execute();
+  public async remove(): Promise<BaseDeleteResponseInterface> {
+    const deleteResult = await this.entity
+      .createQueryBuilder()
+      .delete()
+      .execute();
+    return new BaseDeleteResponse(deleteResult, 'All rows delete success');
   }
 }

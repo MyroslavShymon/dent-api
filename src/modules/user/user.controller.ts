@@ -7,11 +7,13 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { UserService } from './environment/services';
-import { UserServiceInterface } from '../../core/interfaces/user';
-import { BASE_PROVIDER_REPOSITORY } from '../../core/repositories';
-import { USER_SERVICE_TOKEN } from '../../core/constants/tokens/user/user.service.token';
-import { BaseParamRequestInterface } from '../../core/interfaces/base/requests/base-param.request.interface';
+import {
+  BaseParamRequestInterface,
+  USER_SERVICE_TOKEN,
+  UserServiceInterface,
+  BASE_PROVIDER_REPOSITORY,
+} from '../../core';
+import { CreateUserDto, UserService } from './environment';
 
 @Controller('user')
 export class UserController {
@@ -21,7 +23,7 @@ export class UserController {
   ) {}
 
   @Post()
-  create(@Body() userDto: any) {
+  create(@Body() userDto: CreateUserDto) {
     return this.userService.create(userDto);
   }
 

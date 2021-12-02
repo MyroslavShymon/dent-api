@@ -1,4 +1,4 @@
-import { USER_SERVICE_TOKEN } from '../../../../core/constants/tokens/user/user.service.token';
+import { USER_SERVICE_TOKEN } from '../../../../core';
 import { UserService } from '../services';
 import { ClassProvider } from '@nestjs/common';
 

@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { RoleController } from './role.controller';
-import { RoleService } from './environment/services';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from '../../database';
-import { RoleRepository } from '../../core/repositories';
-import { BaseRepositoryProvider } from '../../core/repositories';
+import { RoleController } from './role.controller';
+import { BaseRepositoryProvider, RoleRepository } from '../../core';
+import { RoleService, RoleServiceProvider } from './environment';
 // import { UserModule } from '../user/user.module';
 
 @Module({
@@ -13,6 +12,7 @@ import { BaseRepositoryProvider } from '../../core/repositories';
     // UserModule
   ],
   controllers: [RoleController],
-  providers: [RoleService, BaseRepositoryProvider(RoleRepository)],
+  providers: [RoleServiceProvider, BaseRepositoryProvider(RoleRepository)],
+  exports: [RoleServiceProvider],
 })
 export class RoleModule {}

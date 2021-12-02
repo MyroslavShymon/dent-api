@@ -1,11 +1,13 @@
-import { BaseDeleteResponseInterface } from '../../../interfaces/base/responses/base-delete.response.interface';
+import { BaseDeleteResponseInterface } from '../../../interfaces/base/responses';
+import { FindManyOptions } from 'typeorm';
+import { FilterConditionBaseType } from '../../../types';
 
-export interface BaseRepositoryInterface<T> {
-  create(data: T | any): Promise<T>;
+export interface BaseRepositoryInterface<T, DTO = T> {
+  create(data: DTO extends T ? T : DTO): Promise<T>;
 
   findOneById?(id: number): Promise<T>;
 
-  findByCondition?(filterCondition: any): Promise<T>;
+  findByCondition?(filterCondition: FilterConditionBaseType<T>): Promise<T>;
 
   findAll(): Promise<T[]>;
 
@@ -13,5 +15,5 @@ export interface BaseRepositoryInterface<T> {
 
   remove(): Promise<BaseDeleteResponseInterface>;
 
-  findWithRelations?(relations: any): Promise<T[]>;
+  findWithRelations?(relations: FindManyOptions<T>): Promise<T[]>;
 }
