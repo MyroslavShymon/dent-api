@@ -31,7 +31,12 @@ export class BaseRepositoryAbstract<T> implements BaseRepositoryInterface<T> {
   public async findByCondition(
     filterCondition: FilterConditionBaseType<T>,
   ): Promise<T> {
-    return await this.entity.findOne({ where: filterCondition });
+    const essence: T = await this.entity.findOne({ where: filterCondition });
+    if (!essence)
+      throw new NotFoundException(
+        `Not found ${this.entity.metadata.tableName}`,
+      );
+    return essence;
   }
 
   public async findWithRelations(relations: FindManyOptions<T>): Promise<T[]> {

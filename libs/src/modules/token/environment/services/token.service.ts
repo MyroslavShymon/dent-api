@@ -7,7 +7,7 @@ import { TokenServiceInterface } from '../interfaces';
 export class TokenService implements TokenServiceInterface {
   constructor(private jwtService: JwtService) {}
 
-  generateToken(user: User): any {
+  generateToken(user: User): string {
     const payload = {
       email: user.email,
       id: user.id,

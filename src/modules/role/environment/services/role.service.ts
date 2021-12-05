@@ -7,6 +7,7 @@ import {
   RoleServiceInterface,
   UserServiceInterface,
   USER_SERVICE_TOKEN,
+  FilterConditionBaseType,
 } from '../../../../core';
 import { UserService } from '../../../user/environment';
 import { CreateRoleDto } from '../dtos';
@@ -29,11 +30,11 @@ export class RoleService implements RoleServiceInterface {
     return this.roleRepository.findAll();
   }
 
-  // public async findByCondition(
-  //   filterCondition: FilterConditionBaseType<Role>,
-  // ): Promise<Role> {
-  //   return Promise.resolve(undefined);
-  // }
+  public async findByCondition(
+    filterCondition: FilterConditionBaseType<Role>,
+  ): Promise<Role> {
+    return this.roleRepository.findByCondition(filterCondition);
+  }
 
   public async findOneById(id: number): Promise<Role> {
     return this.roleRepository.findOneById(id);

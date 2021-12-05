@@ -4,8 +4,10 @@ import {
   Delete,
   Get,
   Inject,
+  NotFoundException,
   Param,
   Post,
+  Query,
   UploadedFile,
   UploadedFiles,
   UseInterceptors,
@@ -15,14 +17,14 @@ import {
   USER_SERVICE_TOKEN,
   UserServiceInterface,
   BASE_PROVIDER_REPOSITORY,
-} from '../../core';
-import { CreateUserDto, UserService } from './environment';
+} from '../../../core';
 import {
   FileFieldsInterceptor,
   FileInterceptor,
 } from '@nestjs/platform-express';
+import { CreateUserDto } from '../environment/dtos/create-user.dto';
 
-@Controller('user')
+@Controller('/user')
 export class UserController {
   constructor(
     @Inject(USER_SERVICE_TOKEN)
@@ -58,7 +60,12 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
+  @Get('/email')
+  getByEmail(@Query('email') email: string) {
+    return this.userService.findUserByEmail(email);
+  }
+
+  @Get('/:id')
   getById(@Param() params: BaseParamRequestInterface) {
     return this.userService.findOneById(params.id);
   }
