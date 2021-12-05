@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -16,7 +17,10 @@ import {
   BASE_PROVIDER_REPOSITORY,
 } from '../../core';
 import { CreateUserDto, UserService } from './environment';
-import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from '@nestjs/platform-express';
 
 @Controller('user')
 export class UserController {
@@ -26,12 +30,27 @@ export class UserController {
   ) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'avatar', maxCount: 1 },
+      { name: 'background', maxCount: 1 },
+    ]),
+  )
   create(
     @Body() userDto: CreateUserDto,
-    @UploadedFile() image: Express.Multer.File,
+    @UploadedFiles()
+    files: {
+      avatar?: Express.Multer.File[];
+      background?: Express.Multer.File[];
+    },
   ) {
-    return this.userService.create({ ...userDto, image });
+    const { avatar, background } = files;
+
+    return this.userService.create({
+      ...userDto,
+      avatar: avatar ? avatar[0] : null,
+      background: background ? background[0] : null,
+    });
   }
 
   @Get()

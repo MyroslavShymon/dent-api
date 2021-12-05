@@ -15,5 +15,6 @@ export class CreateUserDto {
   @MaxLength(100)
   password: string;
 
-  image?: Express.Multer.File;
+  avatar?: Express.Multer.File;
+  background?: Express.Multer.File;
 }

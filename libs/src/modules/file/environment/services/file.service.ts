@@ -9,6 +9,7 @@ import { FileServiceInterface } from '../interfaces';
 export class FileService implements FileServiceInterface {
   createFile(type: FileType, file): string {
     try {
+      if (!file) return null;
       const fileExtension = file.originalname.split('.').pop();
       const fileName = String(uuid.v4() + '.' + fileExtension);
       const filePath = path.resolve(

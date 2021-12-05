@@ -16,7 +16,10 @@ export class User {
   public password: string;
 
   @Column({ type: 'varchar', length: 256, nullable: true })
-  public image?: string;
+  public avatar?: string;
+
+  @Column({ type: 'varchar', length: 256, nullable: true })
+  public background?: string;
 
   @ManyToMany(() => Role, (role: Role) => role.users, { onDelete: 'CASCADE' })
   public roles: Role[];

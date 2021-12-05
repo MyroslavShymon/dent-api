@@ -1,5 +1,5 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigService } from '../../config.service';
+import { ConfigService } from '../config.service';
 import { CONFIG_SERVICE } from '../../constants';
 
 export class DatabaseConfigService {

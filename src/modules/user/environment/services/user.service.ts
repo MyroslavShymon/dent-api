@@ -24,11 +24,23 @@ export class UserService implements UserServiceInterface {
     private readonly userRepository: UserRepository,
   ) {}
 
-  public async create({ image, ...userDto }: CreateUserDto): Promise<User> {
-    const imagePath = image
-      ? this.fileService.createFile(FileType.IMAGE, image)
-      : null;
-    return this.userRepository.create({ ...userDto, image: imagePath });
+  public async create({
+    avatar,
+    background,
+    ...userDto
+  }: CreateUserDto): Promise<User> {
+    console.log(avatar, background);
+    const avatarPath = this.fileService.createFile(FileType.IMAGE, avatar);
+    const backgroundPath = this.fileService.createFile(
+      FileType.IMAGE,
+      background,
+    );
+
+    return this.userRepository.create({
+      ...userDto,
+      avatar: avatarPath,
+      background: backgroundPath,
+    });
   }
 
   public async findAll(): Promise<User[]> {
