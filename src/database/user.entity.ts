@@ -15,7 +15,7 @@ export class User {
   @Column({ type: 'varchar', length: 100, nullable: false })
   public password: string;
 
-  @Column({ type: 'varchar', length: 150, nullable: true })
+  @Column({ type: 'varchar', length: 256, nullable: true })
   public image?: string;
 
   @ManyToMany(() => Role, (role: Role) => role.users, { onDelete: 'CASCADE' })

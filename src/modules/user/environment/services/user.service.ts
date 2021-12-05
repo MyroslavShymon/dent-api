@@ -8,17 +8,27 @@ import {
 } from '../../../../core';
 import { BaseDeleteResponseInterface } from '../../../../core/interfaces/base/responses';
 import { CreateUserDto } from '../dtos';
+import {
+  FILE_SERVICE_TOKEN,
+  FileServiceInterface,
+} from '../../../../../libs/src/modules/file/environment';
+import { FileType } from '../../../../../libs/src/modules/file/environment';
 
 @Injectable()
 export class UserService implements UserServiceInterface {
   constructor(
+    @Inject(FILE_SERVICE_TOKEN)
+    private readonly fileService: FileServiceInterface,
     @Inject(BASE_PROVIDER_REPOSITORY)
     @InjectRepository(UserRepository)
     private readonly userRepository: UserRepository,
   ) {}
 
-  public async create(userDto: CreateUserDto): Promise<User> {
-    return this.userRepository.create(userDto);
+  public async create({ image, ...userDto }: CreateUserDto): Promise<User> {
+    const imagePath = image
+      ? this.fileService.createFile(FileType.IMAGE, image)
+      : null;
+    return this.userRepository.create({ ...userDto, image: imagePath });
   }
 
   public async findAll(): Promise<User[]> {

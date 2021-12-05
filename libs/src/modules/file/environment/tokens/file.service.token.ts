@@ -1,0 +1,1 @@
+export const FILE_SERVICE_TOKEN = 'FILE_SERVICE_TOKEN';
