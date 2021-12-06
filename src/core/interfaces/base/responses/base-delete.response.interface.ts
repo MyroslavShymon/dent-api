@@ -1,4 +1,5 @@
 import { DeleteResult } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 export interface BaseDeleteResponseInterface {
   raw: any;
@@ -8,8 +9,20 @@ export interface BaseDeleteResponseInterface {
 
 //TODO
 export class BaseDeleteResponse implements BaseDeleteResponseInterface {
+  @ApiProperty({
+    example: '[]',
+    description: 'Рядки',
+  })
   raw: any;
+  @ApiProperty({
+    example: 4,
+    description: 'Кільківсть видалених рядків',
+  })
   affected?: number | null;
+  @ApiProperty({
+    example: 'Data was delete success',
+    description: 'повідомлення щодо запиту на видалення',
+  })
   message: string;
 
   formDeleteMessage({

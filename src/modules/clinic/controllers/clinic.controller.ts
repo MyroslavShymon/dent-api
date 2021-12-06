@@ -16,7 +16,11 @@ import {
   ClinicServiceInterface,
 } from '../../../core';
 import { CreateClinicDto } from '../environment';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Clinic, User } from '../../../database';
+import { BaseDeleteResponse } from '../../../core/interfaces/base/responses';
 
+@ApiTags('Клініка')
 @Controller('clinic')
 export class ClinicController {
   constructor(
@@ -24,6 +28,8 @@ export class ClinicController {
     private clinicService: ClinicServiceInterface,
   ) {}
 
+  @ApiOperation({ summary: 'Створити клініку' })
+  @ApiResponse({ status: 200, type: Clinic })
   @Post()
   @UseInterceptors(
     FileFieldsInterceptor([
@@ -48,21 +54,29 @@ export class ClinicController {
     });
   }
 
+  @ApiOperation({ summary: 'Отримати всі клініки' })
+  @ApiResponse({ status: 200, type: [Clinic] })
   @Get()
   getAll() {
     return this.clinicService.findAll();
   }
 
+  @ApiOperation({ summary: 'Отримати клініку по id' })
+  @ApiResponse({ status: 200, type: Clinic })
   @Get('/:id')
   getById(@Param() params: BaseParamRequestInterface) {
     return this.clinicService.findOneById(params.id);
   }
 
+  @ApiOperation({ summary: 'Видалити всі клініки' })
+  @ApiResponse({ status: 200, type: BaseDeleteResponse })
   @Delete()
   delete() {
     return this.clinicService.remove();
   }
 
+  @ApiOperation({ summary: 'Отримати клініку по id' })
+  @ApiResponse({ status: 200, type: User })
   @Delete(':id')
   deleteById(@Param() params: BaseParamRequestInterface) {
     return this.clinicService.removeById(params.id);

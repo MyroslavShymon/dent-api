@@ -10,7 +10,9 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CreateUserDto } from '../../user/environment';
 import { LoginUserDto } from '../environment';
 import { AUTH_SERVICE_TOKEN, AuthServiceInterface } from '../../../core';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Авторизація')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -18,11 +20,21 @@ export class AuthController {
     private authService: AuthServiceInterface,
   ) {}
 
+  @ApiOperation({ summary: 'Залогінитись' })
+  @ApiResponse({
+    status: 200,
+    type: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+  })
   @Post('/login')
   login(@Body() userDto: LoginUserDto) {
     return this.authService.login(userDto);
   }
 
+  @ApiOperation({ summary: 'Зареєструватись' })
+  @ApiResponse({
+    status: 200,
+    type: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+  })
   @Post('/registration')
   @UseInterceptors(
     FileFieldsInterceptor([

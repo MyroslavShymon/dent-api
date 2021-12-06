@@ -17,7 +17,11 @@ import {
   UserServiceInterface,
 } from '../../../core';
 import { CreateUserDto } from '../environment';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { User } from '../../../database';
+import { BaseDeleteResponse } from '../../../core/interfaces/base/responses';
 
+@ApiTags('Користувачі')
 @Controller('/user')
 export class UserController {
   constructor(
@@ -25,6 +29,8 @@ export class UserController {
     private userService: UserServiceInterface,
   ) {}
 
+  @ApiOperation({ summary: 'Створити користувача' })
+  @ApiResponse({ status: 200, type: User })
   @Post()
   @UseInterceptors(
     FileFieldsInterceptor([
@@ -49,26 +55,36 @@ export class UserController {
     });
   }
 
+  @ApiOperation({ summary: 'Отримати всіх користувачів' })
+  @ApiResponse({ status: 200, type: [User] })
   @Get()
   getAll() {
     return this.userService.findAll();
   }
 
+  @ApiOperation({ summary: 'Отримати користувача по електронному адресу' })
+  @ApiResponse({ status: 200, type: User })
   @Get('/email')
   getByEmail(@Query('email') email: string) {
     return this.userService.findUserByEmail(email);
   }
 
+  @ApiOperation({ summary: 'Отримати користувача по id' })
+  @ApiResponse({ status: 200, type: User })
   @Get('/:id')
   getById(@Param() params: BaseParamRequestInterface) {
     return this.userService.findOneById(params.id);
   }
 
+  @ApiOperation({ summary: 'Видалити всіх користувачів' })
+  @ApiResponse({ status: 200, type: BaseDeleteResponse })
   @Delete()
   delete() {
     return this.userService.remove();
   }
 
+  @ApiOperation({ summary: 'Видалити користувача по id' })
+  @ApiResponse({ status: 200, type: BaseDeleteResponse })
   @Delete(':id')
   deleteById(@Param() params: BaseParamRequestInterface) {
     return this.userService.removeById(params.id);
