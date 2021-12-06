@@ -7,7 +7,10 @@ export interface BaseRepositoryInterface<T, DTO = T> {
 
   findOneById?(id: number): Promise<T>;
 
-  findByCondition?(filterCondition: FilterConditionBaseType<T>): Promise<T>;
+  findByCondition?(
+    filterCondition: FilterConditionBaseType<T>,
+    isThrowing?: boolean,
+  ): Promise<T>;
 
   findAll(): Promise<T[]>;
 

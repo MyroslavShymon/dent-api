@@ -3,6 +3,7 @@ import { ConfigModule } from '../config/src/config.module';
 import { DatabaseConfigService } from '../config/src/services';
 import { UserModule, RoleModule, AuthModule } from './modules';
 import { TokenModule, FileModule } from '../libs/src/modules';
+import { ClinicModule } from './modules/clinic/clinic.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { TokenModule, FileModule } from '../libs/src/modules';
     UserModule,
     RoleModule,
     AuthModule,
+    ClinicModule,
   ],
   providers: [],
 })

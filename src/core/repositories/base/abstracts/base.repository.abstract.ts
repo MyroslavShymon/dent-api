@@ -30,9 +30,10 @@ export class BaseRepositoryAbstract<T> implements BaseRepositoryInterface<T> {
   //TODO fix typing
   public async findByCondition(
     filterCondition: FilterConditionBaseType<T>,
+    isThrowing = true,
   ): Promise<T> {
     const essence: T = await this.entity.findOne({ where: filterCondition });
-    if (!essence)
+    if (!essence && isThrowing)
       throw new NotFoundException(
         `Not found ${this.entity.metadata.tableName}`,
       );

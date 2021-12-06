@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../../database';
 import {
@@ -15,6 +15,7 @@ import {
 } from '../../../../../libs/src/modules/file/environment';
 import { FileType } from '../../../../../libs/src/modules/file/environment';
 import { CreateUserDto } from '../dtos';
+import { FindManyOptions } from 'typeorm';
 
 @Injectable()
 export class UserService implements UserServiceInterface {
@@ -73,15 +74,17 @@ export class UserService implements UserServiceInterface {
     return this.userRepository.findOneById(id);
   }
 
-  // public async findWithRelations(relations): Promise<User[]> {
-  //   return await this.userRepository.usersRepository.find({ where: {} });
-  // }
+  public async findWithRelations(
+    relations: FindManyOptions<User>,
+  ): Promise<User[]> {
+    return this.userRepository.findWithRelations(relations);
+  }
 
-  public remove(): Promise<BaseDeleteResponseInterface> {
+  public async remove(): Promise<BaseDeleteResponseInterface> {
     return this.userRepository.remove();
   }
 
-  public removeById(id: number): Promise<BaseDeleteResponseInterface> {
+  public async removeById(id: number): Promise<BaseDeleteResponseInterface> {
     return this.userRepository.removeById(id);
   }
 }

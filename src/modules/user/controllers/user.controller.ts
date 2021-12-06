@@ -4,25 +4,19 @@ import {
   Delete,
   Get,
   Inject,
-  NotFoundException,
   Param,
   Post,
   Query,
-  UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
   BaseParamRequestInterface,
   USER_SERVICE_TOKEN,
   UserServiceInterface,
-  BASE_PROVIDER_REPOSITORY,
 } from '../../../core';
-import {
-  FileFieldsInterceptor,
-  FileInterceptor,
-} from '@nestjs/platform-express';
-import { CreateUserDto } from '../environment/dtos/create-user.dto';
+import { CreateUserDto } from '../environment';
 
 @Controller('/user')
 export class UserController {

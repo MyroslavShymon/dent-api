@@ -11,7 +11,7 @@ import {
   BaseParamRequestInterface,
   ROLE_SERVICE_TOKEN,
   RoleServiceInterface,
-} from '../../core';
+} from '../../../core';
 
 @Controller('role')
 export class RoleController {

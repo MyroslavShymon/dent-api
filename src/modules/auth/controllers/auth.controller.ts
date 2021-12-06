@@ -7,9 +7,9 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { CreateUserDto } from '../user/environment';
-import { LoginUserDto } from './environment';
-import { AUTH_SERVICE_TOKEN, AuthServiceInterface } from '../../core';
+import { CreateUserDto } from '../../user/environment';
+import { LoginUserDto } from '../environment';
+import { AUTH_SERVICE_TOKEN, AuthServiceInterface } from '../../../core';
 
 @Controller('auth')
 export class AuthController {

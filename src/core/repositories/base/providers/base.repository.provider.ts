@@ -1,4 +1,4 @@
-import { BASE_PROVIDER_REPOSITORY } from '../tokens/base.repository.token';
+import { BASE_PROVIDER_REPOSITORY } from '../tokens';
 
 export function BaseRepositoryProvider(useClass) {
   return {
