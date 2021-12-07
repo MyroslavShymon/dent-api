@@ -4,11 +4,12 @@ import { DatabaseConfigService } from '../config/src/services';
 import { UserModule, RoleModule, AuthModule } from './modules';
 import { TokenModule, FileModule } from '../libs/src/modules';
 import { ClinicModule } from './modules/clinic/clinic.module';
+import { entities } from './database';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    DatabaseConfigService.provideTypeOrmModule(),
+    DatabaseConfigService.provideTypeOrmModule(entities),
 
     //libs
     FileModule,

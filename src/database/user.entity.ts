@@ -1,6 +1,18 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Role } from './role.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { ClinicPost } from './clinic-post.entity';
+import { ClinicPostComment } from './clinic-post-comment.entity';
+import { Administrator } from './administrator.entity';
+import { Owner } from './owner.entity';
+import { Skill } from './skill.entity';
 
 @Entity()
 export class User {
@@ -36,4 +48,23 @@ export class User {
 
   @ManyToMany(() => Role, (role: Role) => role.users, { onDelete: 'CASCADE' })
   public roles: Role[];
+
+  @OneToMany(
+    () => Administrator,
+    (administrator: Administrator) => administrator.user,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
+  public administrator!: Administrator[];
+
+  @OneToMany(() => Owner, (owner: Owner) => owner.user, {
+    onDelete: 'CASCADE',
+  })
+  public owner!: Owner[];
+
+  @ManyToMany(() => Skill, (skill: Skill) => skill.users, {
+    onDelete: 'CASCADE',
+  })
+  public skills: Skill[];
 }

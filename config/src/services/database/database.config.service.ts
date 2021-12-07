@@ -3,7 +3,7 @@ import { ConfigService } from '../config.service';
 import { CONFIG_SERVICE } from '../../constants';
 
 export class DatabaseConfigService {
-  static provideTypeOrmModule = () =>
+  static provideTypeOrmModule = (entities) =>
     TypeOrmModule.forRootAsync({
       inject: [CONFIG_SERVICE],
       useFactory: async (configService: ConfigService) => ({
@@ -17,7 +17,7 @@ export class DatabaseConfigService {
         autoLoadEntities: Boolean(
           configService.getValue('POSTGRES_AUTO_LOAD_ENTITIES'),
         ),
-        entities: [configService.getValue('CONFIG_ENTITY_DIR')],
+        entities,
       }),
     });
 }
