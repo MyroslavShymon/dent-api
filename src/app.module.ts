@@ -1,9 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '../config/src/config.module';
 import { DatabaseConfigService } from '../config/src/services';
-import { UserModule, RoleModule, AuthModule } from './modules';
+import {
+  UserModule,
+  RoleModule,
+  AuthModule,
+  ClinicModule,
+  ClinicPostModule,
+  ClinicPostCommentModule,
+  SkillModule,
+  OrderModule,
+  OwnerModule,
+  PriceListModule,
+  WorkModule,
+  WorkTypeModule,
+} from './modules';
 import { TokenModule, FileModule } from '../libs/src/modules';
-import { ClinicModule } from './modules/clinic/clinic.module';
 import { entities } from './database';
 
 @Module({
@@ -20,6 +32,14 @@ import { entities } from './database';
     RoleModule,
     AuthModule,
     ClinicModule,
+    ClinicPostModule,
+    ClinicPostCommentModule,
+    SkillModule,
+    OrderModule,
+    OwnerModule,
+    PriceListModule,
+    WorkModule,
+    WorkTypeModule,
   ],
   providers: [],
 })
