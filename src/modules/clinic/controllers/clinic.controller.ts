@@ -17,7 +17,7 @@ import {
 } from '../../../core';
 import { CreateClinicDto } from '../environment';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Clinic, User } from '../../../database';
+import { Clinic } from '../../../database';
 import { BaseDeleteResponse } from '../../../core/interfaces/base/responses';
 
 @ApiTags('Клініка')
@@ -76,7 +76,7 @@ export class ClinicController {
   }
 
   @ApiOperation({ summary: 'Отримати клініку по id' })
-  @ApiResponse({ status: 200, type: User })
+  @ApiResponse({ status: 200, type: Clinic })
   @Delete(':id')
   deleteById(@Param() params: BaseParamRequestInterface) {
     return this.clinicService.removeById(params.id);

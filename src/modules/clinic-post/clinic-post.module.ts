@@ -1,9 +1,18 @@
 import { Module } from '@nestjs/common';
-import { ClinicPostController } from './clinic-post.controller';
-import { ClinicPostService } from './clinic-post.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ClinicPost } from '../../database';
+import { CLINIC_POST_CONTROLLERS } from './controllers';
+import { ClinicPostServiceProvider } from './environment';
+import { BaseRepositoryProvider, ClinicPostRepository } from '../../core';
+import { ClinicModule } from '../clinic/clinic.module';
 
 @Module({
-  controllers: [ClinicPostController],
-  providers: [ClinicPostService]
+  imports: [TypeOrmModule.forFeature([ClinicPost]), ClinicModule],
+  controllers: CLINIC_POST_CONTROLLERS,
+  providers: [
+    ClinicPostServiceProvider,
+    BaseRepositoryProvider(ClinicPostRepository),
+  ],
+  exports: [ClinicPostServiceProvider],
 })
 export class ClinicPostModule {}

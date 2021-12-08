@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { PriceList } from './priceList.entity';
 
@@ -65,11 +71,11 @@ export class Order {
   public performerId: number;
 
   @ApiProperty({
-    example: new Date(),
+    example: '31.07.2432',
     description: 'Дата початку виконання замовлення',
   })
-  @Column('timestamp')
-  public startTime: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
   @ApiProperty({
     example: new Date(),

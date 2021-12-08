@@ -14,6 +14,7 @@ import {
   PriceListModule,
   WorkModule,
   WorkTypeModule,
+  AdministratorModule,
 } from './modules';
 import { TokenModule, FileModule } from '../libs/src/modules';
 import { entities } from './database';
@@ -40,6 +41,7 @@ import { entities } from './database';
     PriceListModule,
     WorkModule,
     WorkTypeModule,
+    AdministratorModule,
   ],
   providers: [],
 })

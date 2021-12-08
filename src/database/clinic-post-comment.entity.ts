@@ -1,8 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { ClinicPost } from './clinic-post.entity';
-import { Clinic } from './clinic.entity';
-import { User } from './user.entity';
 
 @Entity()
 export class ClinicPostComment {

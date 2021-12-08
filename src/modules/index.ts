@@ -10,3 +10,4 @@ export * from './price-list/price-list.module';
 export * from './skill/skill.module';
 export * from './work/work.module';
 export * from './work-type/work-type.module';
+export * from './administrator/administrator.module';

@@ -1,0 +1,1 @@
+export const WORK_SERVICE_TOKEN = 'WORK_SERVICE_TOKEN';

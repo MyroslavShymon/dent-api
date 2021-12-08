@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Clinic } from '../../../database';
-import { ClinicRepositoryInterface } from './interfaces/clinic.repository.interface';
+import { ClinicRepositoryInterface } from './interfaces';
 import { BaseRepositoryAbstract } from '../base';
 
 @EntityRepository(Clinic)
